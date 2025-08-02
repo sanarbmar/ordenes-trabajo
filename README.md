@@ -27,8 +27,8 @@ cd concesionario-ordenes-trabajo
 
 El proyecto está preparado para trabajar con perfiles de entorno. Puedes usar:
 
-- `local`: configuración local sin base de datos real (en memoria).
-- `dev`: configuración para desarrollo real con base de datos PostgreSQL.
+- `local`: configuración local usando hibernate para crear las tablas en ambiente local.
+- `dev`: crea un modelo de datos por sql script.
 
 Edita el archivo `application.properties` para cambiar el perfil activo:
 
