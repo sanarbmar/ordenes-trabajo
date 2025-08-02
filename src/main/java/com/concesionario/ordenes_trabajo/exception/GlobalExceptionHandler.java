@@ -33,5 +33,5 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
-    // Puedes añadir más @ExceptionHandler para otras excepciones personalizadas
+
 }
