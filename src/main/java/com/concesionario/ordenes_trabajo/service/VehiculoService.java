@@ -23,6 +23,15 @@ public class VehiculoService {
         }
         return vehiculoRepository.save(vehiculo);
     }
+    public Vehiculo actualizarVehiculo(Long id, Vehiculo vehiculoActualizado) {
+        Vehiculo existente = obtenerVehiculoPorId(id);
+        existente.setPlaca(vehiculoActualizado.getPlaca());
+        existente.setMarca(vehiculoActualizado.getMarca());
+        existente.setModelo(vehiculoActualizado.getModelo());
+        existente.setAnio(vehiculoActualizado.getAnio());
+        return vehiculoRepository.save(existente);
+    }
+
 
     public List<Vehiculo> listarVehiculos() {
         return vehiculoRepository.findAll();

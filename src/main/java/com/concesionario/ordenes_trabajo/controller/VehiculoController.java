@@ -33,6 +33,12 @@ public class VehiculoController {
         return ResponseEntity.ok(vehiculoService.obtenerVehiculoPorId(id));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Vehiculo> actualizarVehiculo(@PathVariable Long id, @RequestBody Vehiculo vehiculo) {
+        Vehiculo actualizado = vehiculoService.actualizarVehiculo(id, vehiculo);
+        return ResponseEntity.ok(actualizado);
+    }
+
     // Opcional
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarVehiculo(@PathVariable Long id) {

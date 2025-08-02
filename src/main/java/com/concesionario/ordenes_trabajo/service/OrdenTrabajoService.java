@@ -58,4 +58,39 @@ public class OrdenTrabajoService {
 
         return ordenTrabajoRepository.findByVehiculoId(vehiculoId);
     }
+
+    public OrdenTrabajo obtenerOrdenPorId(Long id) {
+        return ordenTrabajoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Orden no encontrada"));
+    }
+
+    public List<OrdenTrabajo> obtenerTodas() {
+        return ordenTrabajoRepository.findAll();
+    }
+
+    @Transactional
+    public OrdenTrabajo actualizarOrden(Long id, OrdenTrabajo ordenActualizada) {
+        OrdenTrabajo orden = ordenTrabajoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Orden no encontrada"));
+
+        orden.setTipo(ordenActualizada.getTipo());
+        orden.setFechaOrden(ordenActualizada.getFechaOrden());
+        orden.setActiva(ordenActualizada.isActiva());
+
+        if (ordenActualizada.getVehiculo() != null) {
+            Long nuevoVehiculoId = ordenActualizada.getVehiculo().getId();
+            Vehiculo nuevoVehiculo = vehiculoRepository.findById(nuevoVehiculoId)
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado con ID: " + nuevoVehiculoId));
+            orden.setVehiculo(nuevoVehiculo);
+        }
+
+        return ordenTrabajoRepository.save(orden);
+    }
+
+    @Transactional
+    public void eliminarOrden(Long id) {
+        OrdenTrabajo orden = ordenTrabajoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Orden no encontrada"));
+        ordenTrabajoRepository.delete(orden);
+    }
 }
